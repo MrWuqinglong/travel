@@ -1,9 +1,13 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" isELIgnored="false" pageEncoding="UTF-8" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" isELIgnored="false" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <html>
 <head>
-    <title>Title</title>
     <meta charset="UTF-8">
-    <meta http-equiv="REFRESH" content="0;url=http://localhost:8080/site/index.action">
+    <title>Title</title>
+    <link rel="stylesheet" href="static/layui/css/layui.css" charset="UTF-8">
+    <link rel="stylesheet" href="static/css/layout.css" charset="UTF-8">
+    <script src="static/layui/layui.js" charset="UTF-8"></script>
 </head>
 <body>
 

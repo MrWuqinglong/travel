@@ -1,0 +1,34 @@
+.grid {
+    display: flex;
+    flex-wrap: wrap;
+}
+.grid-cell-full {
+    flex: 0 0 100%;
+}
+.grid-cell-1of2 {
+    flex: 0 0 50%;
+}
+.grid-cell-1of3 {
+    flex: 0 0 33.3333%;
+}
+.grid-cell-2of3 {
+    flex: 0 0 66.6666%;
+}
+.grid-cell-1of4 {
+    flex: 0 0 25%;
+}
+.grid-cell-2of4 {
+    flex: 0 0 50%;
+}
+.grid-cell-3of4 {
+    flex: 0 0 75%;
+}
+.grid-cell-1of5 {
+    flex: 0 0 20%;
+}
+.grid.content {
+    margin: 10px 20px;
+}
+.breadcrumb {
+    margin-bottom: 20px;
+}

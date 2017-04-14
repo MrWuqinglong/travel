@@ -9,14 +9,13 @@ import java.util.Set;
  * 景点管理表
  */
 @Entity
-@Table(name = "scenic")
 public class Scenic {
 
     private Integer id;
     private String name;    // 景点名称
-    private String overview;    // 景点简介
     private Integer price;  // 价格
     private String openTime;    // 景点开放时间
+    private String address; // 景点地址
     private String mobile;  // 咨询电话
     private Timestamp createTime;   // 景点添加时间
 
@@ -32,7 +31,6 @@ public class Scenic {
         this.id = id;
     }
 
-    @Column(name = "name")
     public String getName() {
         return name;
     }
@@ -41,16 +39,6 @@ public class Scenic {
         this.name = name;
     }
 
-    @Column(name = "over_view")
-    public String getOverview() {
-        return overview;
-    }
-
-    public void setOverview(String overview) {
-        this.overview = overview;
-    }
-
-    @Column(name = "price")
     public Integer getPrice() {
         return price;
     }
@@ -59,7 +47,6 @@ public class Scenic {
         this.price = price;
     }
 
-    @Column(name = "open_time")
     public String getOpenTime() {
         return openTime;
     }
@@ -68,7 +55,14 @@ public class Scenic {
         this.openTime = openTime;
     }
 
-    @Column(name = "mobile")
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
     public String getMobile() {
         return mobile;
     }

@@ -6,7 +6,6 @@ import javax.persistence.*;
  * 管理员
  */
 @Entity
-@Table(name = "admin")
 public class Admin {
 
     private Integer id;
@@ -23,7 +22,6 @@ public class Admin {
         this.id = id;
     }
 
-    @Column(name = "user_name")
     public String getUsername() {
         return username;
     }
@@ -32,7 +30,6 @@ public class Admin {
         this.username = username;
     }
 
-    @Column(name = "password")
     public String getPassword() {
         return password;
     }
@@ -40,4 +37,5 @@ public class Admin {
     public void setPassword(String password) {
         this.password = password;
     }
+
 }

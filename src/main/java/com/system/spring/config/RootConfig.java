@@ -21,9 +21,6 @@ public class RootConfig {
 
     /**
      * 配置数据源
-     *
-     * @return 数据库连接池
-     * @throws PropertyVetoException
      */
     @Bean
     public DataSource dataSource() throws PropertyVetoException {
@@ -39,9 +36,6 @@ public class RootConfig {
 
     /**
      * 配置 Hibernate 的 LocalSessionFactory
-     *
-     * @return Hibernate 的 SessionFactory 对象
-     * @throws PropertyVetoException
      */
     @Bean
     public LocalSessionFactoryBean sessionFactoryBean() throws PropertyVetoException {
@@ -60,9 +54,6 @@ public class RootConfig {
 
     /**
      * 配置事务管理器
-     *
-     * @return
-     * @throws PropertyVetoException
      */
     @Bean
     public HibernateTransactionManager transactionManager() throws PropertyVetoException {

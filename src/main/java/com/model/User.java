@@ -9,7 +9,6 @@ import java.util.Set;
  * 用户表
  */
 @Entity
-@Table(name = "user")
 public class User {
 
     private Integer id;
@@ -34,7 +33,6 @@ public class User {
         this.id = id;
     }
 
-    @Column(name = "user_name")
     public String getUsername() {
         return username;
     }
@@ -43,7 +41,6 @@ public class User {
         this.username = username;
     }
 
-    @Column(name = "password")
     public String getPassword() {
         return password;
     }
@@ -52,7 +49,6 @@ public class User {
         this.password = password;
     }
 
-    @Column(name = "gender")
     public String getGender() {
         return gender;
     }
@@ -61,7 +57,6 @@ public class User {
         this.gender = gender;
     }
 
-    @Column(name = "mobile")
     public String getMobile() {
         return mobile;
     }
@@ -70,7 +65,6 @@ public class User {
         this.mobile = mobile;
     }
 
-    @Column(name = "address")
     public String getAddress() {
         return address;
     }

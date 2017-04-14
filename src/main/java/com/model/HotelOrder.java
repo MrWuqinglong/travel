@@ -7,7 +7,6 @@ import java.sql.Timestamp;
  * 酒店预定表
  */
 @Entity
-@Table(name = "hotel_order")
 public class HotelOrder {
 
     private Integer id;
@@ -27,7 +26,6 @@ public class HotelOrder {
         this.id = id;
     }
 
-    @Column(name = "status")
     public Integer getStatus() {
         return status;
     }

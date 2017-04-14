@@ -7,7 +7,6 @@ import java.sql.Timestamp;
  * 系统留言表
  */
 @Entity
-@Table(name = "leave_msg")
 public class LeaveMsg {
 
     private Integer id;
@@ -26,7 +25,6 @@ public class LeaveMsg {
         this.id = id;
     }
 
-    @Column(name = "user_name")
     public String getUsername() {
         return username;
     }
@@ -35,7 +33,6 @@ public class LeaveMsg {
         this.username = username;
     }
 
-    @Column(name = "mobile")
     public String getMobile() {
         return mobile;
     }

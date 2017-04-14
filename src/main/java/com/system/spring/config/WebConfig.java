@@ -14,7 +14,9 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 @ComponentScan("com.controller")
 public class WebConfig extends WebMvcConfigurerAdapter{
 
-    /* 配置视图解析器 */
+    /**
+     * 配置视图解析器
+     */
     @Bean
     public ViewResolver viewResolver() {
         InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
@@ -23,7 +25,9 @@ public class WebConfig extends WebMvcConfigurerAdapter{
         return viewResolver;
     }
 
-    /* 配置静态资源处理 */
+    /**
+     * 配置静态资源处理
+     */
     @Override
     public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
         configurer.enable();

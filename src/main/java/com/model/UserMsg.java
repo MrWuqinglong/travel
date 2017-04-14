@@ -8,7 +8,6 @@ import java.sql.Timestamp;
  * 管理员对用户发送方站内信
  */
 @Entity
-@Table(name = "user_msg")
 public class UserMsg {
 
     private Integer id;
@@ -26,7 +25,6 @@ public class UserMsg {
         this.id = id;
     }
 
-    @Column(name = "message")
     public String getMessage() {
         return message;
     }
@@ -35,7 +33,6 @@ public class UserMsg {
         this.message = message;
     }
 
-    @Column(name = "create_time", columnDefinition = "timestamp default current_timestamp")
     public Timestamp getCreateTime() {
         return createTime;
     }

@@ -7,15 +7,14 @@ import java.sql.Timestamp;
  * 景点预定表
  */
 @Entity
-@Table(name = "scenic_order")
 public class ScenicOrder {
 
     private Integer id;
     private Integer status; // 0: 过期; 1: 未使用
-    private Timestamp expTime; // 失效时间
+    private Timestamp expTime; // 失效时间， 默认一天失效
     private User user;
     private Scenic scenic;
-    private Timestamp createTime;
+    private Timestamp createTime; // 购买时间
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,7 +26,6 @@ public class ScenicOrder {
         this.id = id;
     }
 
-    @Column(name = "status")
     public Integer getStatus() {
         return status;
     }
