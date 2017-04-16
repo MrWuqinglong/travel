@@ -14,10 +14,7 @@ public class Hotel {
     private Integer id;
     private String name;
     private Integer price;
-    private String breakfast;
-    private String wifi;
-    private String freeTake;
-    private String airCondition;
+    private String service;
     private String address;
     private String hotLine;
     private Timestamp createTime;
@@ -50,36 +47,12 @@ public class Hotel {
         this.price = price;
     }
 
-    public String getBreakfast() {
-        return breakfast;
+    public String getService() {
+        return service;
     }
 
-    public void setBreakfast(String breakfast) {
-        this.breakfast = breakfast;
-    }
-
-    public String getWifi() {
-        return wifi;
-    }
-
-    public void setWifi(String wifi) {
-        this.wifi = wifi;
-    }
-
-    public String getFreeTake() {
-        return freeTake;
-    }
-
-    public void setFreeTake(String freeTake) {
-        this.freeTake = freeTake;
-    }
-
-    public String getAirCondition() {
-        return airCondition;
-    }
-
-    public void setAirCondition(String airCondition) {
-        this.airCondition = airCondition;
+    public void setService(String service) {
+        this.service = service;
     }
 
     public String getAddress() {

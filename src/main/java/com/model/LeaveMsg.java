@@ -11,7 +11,7 @@ public class LeaveMsg {
 
     private Integer id;
     private String username;
-    private String mobile;
+    private String email;
     private String content;
     private Timestamp createTime;
 
@@ -33,12 +33,12 @@ public class LeaveMsg {
         this.username = username;
     }
 
-    public String getMobile() {
-        return mobile;
+    public String getEmail() {
+        return email;
     }
 
-    public void setMobile(String mobile) {
-        this.mobile = mobile;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     @Column(name = "content", columnDefinition = "TEXT")

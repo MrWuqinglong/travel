@@ -18,6 +18,7 @@ public class User {
     private String mobile;
     private String address;
     private Timestamp createTime;
+    private Integer balance;
 
     private Set<UserMsg> userMsgs = new HashSet<>();
     private Set<ScenicOrder> scenicOrders = new HashSet<>();
@@ -71,6 +72,14 @@ public class User {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public Integer getBalance() {
+        return balance;
+    }
+
+    public void setBalance(Integer balance) {
+        this.balance = balance;
     }
 
     @Column(name = "create_time", columnDefinition = "timestamp default current_timestamp")

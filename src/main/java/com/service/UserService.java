@@ -20,6 +20,16 @@ public class UserService extends BaseService<User> {
         super.setDao(dao);
     }
 
+    public User getUserByName(User user) {
+        return userDAO.getByName(user);
+    }
 
-
+    public void cash(Integer totalPrice, User user) throws Exception {
+        User dbUser = userDAO.get(user.getId());
+        if (dbUser.getBalance() < totalPrice) {
+            throw new Exception("账户余额不足");
+        }
+        dbUser.setBalance(dbUser.getBalance() - totalPrice);
+        userDAO.update(dbUser);
+    }
 }
