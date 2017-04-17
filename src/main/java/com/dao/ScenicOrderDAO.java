@@ -16,4 +16,9 @@ public class ScenicOrderDAO extends BaseDAO<ScenicOrder> {
         String hql = "FROM ScenicOrder WHERE user.id=?";
         return listWithCustom(hql, user.getId());
     }
+
+    public ScenicOrder getByUUID(String uuid) {
+        String hql = "FROM ScenicOrder WHERE uuid=?";
+        return get(hql, uuid);
+    }
 }

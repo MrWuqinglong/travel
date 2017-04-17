@@ -12,7 +12,7 @@ import java.util.List;
 @Repository
 public class NoticeDAO extends BaseDAO<Notice> {
     public List<Notice> listLastNotice() {
-        String hql = "FROM Notice ORDER BY createTime DESC LIMIT ?";
-        return listWithCustom(hql, 5);
+        String hql = "FROM Notice ORDER BY createTime DESC";
+        return listPage(hql, 1, 5);
     }
 }

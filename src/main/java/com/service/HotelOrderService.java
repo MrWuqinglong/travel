@@ -5,6 +5,7 @@ import com.dao.HotelOrderDAO;
 import com.model.Hotel;
 import com.model.HotelOrder;
 import com.model.User;
+import org.hibernate.Hibernate;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -42,5 +43,12 @@ public class HotelOrderService extends BaseService<HotelOrder> {
             order.setUser(user);
             hotelOrderDAO.save(order);
         }
+    }
+
+    public HotelOrder getByUUID(String uuid) {
+        HotelOrder order = hotelOrderDAO.getByUUID(uuid);
+        Hibernate.initialize(order.getHotel());
+        Hibernate.initialize(order.getUser());
+        return order;
     }
 }

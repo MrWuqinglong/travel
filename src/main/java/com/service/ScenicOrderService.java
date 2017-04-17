@@ -5,6 +5,7 @@ import com.dao.ScenicOrderDAO;
 import com.model.Scenic;
 import com.model.ScenicOrder;
 import com.model.User;
+import org.hibernate.Hibernate;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -42,5 +43,12 @@ public class ScenicOrderService extends BaseService<ScenicOrder> {
             order.setCreateTime(new Timestamp(System.currentTimeMillis()));
             scenicOrderDAO.save(order);
         }
+    }
+
+    public ScenicOrder getByUUID(String uuid) {
+        ScenicOrder order = scenicOrderDAO.getByUUID(uuid);
+        Hibernate.initialize(order.getScenic());
+        Hibernate.initialize(order.getUser());
+        return order;
     }
 }

@@ -12,7 +12,7 @@ import java.util.List;
 @Repository
 public class HotelDAO extends BaseDAO<Hotel> {
     public List<Hotel> listLastHotel() {
-        String hql = "FROM Hotel ORDER BY createTime DESC LIMIT ?";
-        return listWithCustom(hql, 5);
+        String hql = "FROM Hotel ORDER BY createTime DESC";
+        return listPage(hql, 1, 5);
     }
 }

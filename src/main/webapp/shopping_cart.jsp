@@ -12,22 +12,7 @@
 <body>
 
 <!-- 导航栏 -->
-<div>
-    <ul class="layui-nav">
-        <li class="layui-nav-item layui-this">
-            <a href="/" class="item">首页</a>
-        </li>
-        <li class="layui-nav-item">
-            <a href="/" class="item">预定景点</a>
-        </li>
-        <li class="layui-nav-item">
-            <a href="/" class="item">预定酒店</a>
-        </li>
-        <li class="layui-nav-item">
-            <a href="/" class="item">联系我们</a>
-        </li>
-    </ul>
-</div>
+<%@ include file="header.jsp"%>
 
 <div class="grid content">
     <div class="grid-cell-full breadcrumb">

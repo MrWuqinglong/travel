@@ -8,51 +8,61 @@
     <link rel="stylesheet" href="/static/layui/css/layui.css" charset="UTF-8">
     <link rel="stylesheet" href="/static/css/layout.css" charset="UTF-8">
     <script src="/static/layui/layui.js" charset="UTF-8"></script>
-    <style type="text/css">
-        fieldset {
-            width: 500px;
-        }
-    </style>
 </head>
 <body>
 
 <!-- 导航栏 -->
 <%@ include file="header.jsp"%>
 
+
 <div class="grid content">
     <div class="grid-cell-full breadcrumb">
         <span class="layui-breadcrumb">
             <a><cite>首页</cite></a>
-            <a><cite>联系我们</cite></a>
+            <a><cite>酒店详情</cite></a>
         </span>
     </div>
     <div class="grid-cell-full">
         <fieldset class="layui-elem-field">
-            <legend>填写相关信息提供给我们</legend>
+            <legend>酒店详情</legend>
             <div class="layui-field-box">
                 <form class="layui-form layui-form-pane">
+                    <input type="hidden" name="id" value="${hotel.id}">
                     <div class="layui-form-item">
-                        <label class="layui-form-label">姓名</label>
+                        <label class="layui-form-label">名称</label>
                         <div class="layui-input-block">
-                            <input type="text" name="username" class="layui-input">
+                            <input type="text" value="${hotel.name}" class="layui-input" disabled>
                         </div>
                     </div>
                     <div class="layui-form-item">
-                        <label class="layui-form-label">邮箱</label>
+                        <label class="layui-form-label">价格</label>
                         <div class="layui-input-block">
-                            <input type="text" name="email" class="layui-input">
+                            <input type="text" value="${hotel.price}" class="layui-input" disabled>
                         </div>
                     </div>
-                    <div class="layui-form-item layui-form-text">
-                        <label class="layui-form-label">内容</label>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">服务</label>
                         <div class="layui-input-block">
-                            <textarea name="content" class="layui-textarea"></textarea>
+                            <input type="text" value="${hotel.service}" class="layui-input" disabled>
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">地址</label>
+                        <div class="layui-input-block">
+                            <input type="text" value="${hotel.address}" class="layui-input" disabled>
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">热线电话</label>
+                        <div class="layui-input-block">
+                            <input type="text" value="${hotel.hotLine}" class="layui-input" disabled>
                         </div>
                     </div>
                     <div class="layui-form-item">
                         <div class="layui-input-block">
-                            <button class="layui-btn" lay-submit="" lay-filter="formDemo">立即反馈</button>
+                            <button id="addCart" class="layui-btn">立即订购</button>
                         </div>
+                        <input type="text" value="">
                     </div>
                 </form>
             </div>
@@ -65,15 +75,17 @@
         var element = layui.element();
         var $ = layui.jquery;
         var layer = layui.layer;
-        
-        form.on('submit(formDemo)', function (data) {
-            var urlVal = "/leaveMsg/leaveMsg.action";
-            var dataVal = data.field;
+
+        $("#addCart").click(function () {
+            var idVal = $("input[type='hidden']").val();
+            var urlVal = "/cart/addCart.action";
+            var dataVal = {"id":idVal, "type":"hotel"};
             $.post(urlVal, dataVal, function (result) {
                 layer.alert(result.message);
             });
         });
     });
 </script>
+
 </body>
 </html>

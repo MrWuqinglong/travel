@@ -7,8 +7,10 @@ import com.system.utils.MD5Util;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.support.SessionStatus;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpSession;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
@@ -40,9 +42,19 @@ public class UserController extends BaseController{
     @PostMapping(value = "/doRegister.action", produces = "text/json;charset=UTF-8")
     @ResponseBody
     public String doRegister(User user, ModelMap modelMap) {
+
+        User dbUser = userService.getUserByName(user);
+        if (dbUser != null) {
+            response.setType("error");
+            response.setMessage("用户名已经被占用");
+            return JSON.toJSONString(response);
+        }
+
         user.setPassword(MD5Util.generateMD5(user.getPassword()));
         user.setCreateTime(new Timestamp(System.currentTimeMillis()));
+        user.setBalance(0);
         userService.save(user);
+        response.setType("success");
         response.setMessage("注册成功");
         modelMap.addAttribute("user", user);
         return JSON.toJSONString(response);
@@ -50,7 +62,7 @@ public class UserController extends BaseController{
 
     @PostMapping(value = "/doLogin.action", produces = "text/json;charset=UTF-8")
     @ResponseBody
-    public String doLogin(User user) {
+    public String doLogin(User user, ModelMap modelMap) {
         User dbUser = userService.getUserByName(user);
         if (dbUser == null) {
             response.setType("error");
@@ -62,8 +74,16 @@ public class UserController extends BaseController{
             response.setMessage("密码不正确");
             return JSON.toJSONString(response);
         }
+        modelMap.addAttribute("user", dbUser);
         response.setType("success");
         return JSON.toJSONString(response);
+    }
+
+    @GetMapping(value = "/doLogout.action")
+    public String doLogout(SessionStatus sessionStatus, HttpSession httpSession) {
+        sessionStatus.setComplete();
+        httpSession.invalidate();
+        return "redirect:/user/index.action";
     }
 
     @PostMapping(value = "/cashShoppingCart.action", produces = "text/json;charset=UTF-8")
@@ -104,6 +124,42 @@ public class UserController extends BaseController{
         modelMap.addAttribute("scenicOrders", scenicOrders);
         modelMap.addAttribute("useMsgs", userMsgs);
         return "/user_back";
+    }
+
+    @PostMapping(value = "/recharge.action", produces = "text/json;charset=UTF-8")
+    @ResponseBody
+    public String recharge(Integer money, ModelMap modelMap) {
+        User user = (User) modelMap.get("user");
+        User dbUser = userService.get(user.getId());
+        dbUser.setBalance(dbUser.getBalance() + money);
+        userService.update(dbUser);
+        modelMap.addAttribute("user", dbUser);
+        response.setMessage("充值成功");
+        return JSON.toJSONString(response);
+    }
+
+    @PostMapping(value = "/deleteScenicOrder.action", produces = "text/json;charset=UTF-8")
+    @ResponseBody
+    public String deleteScenicOrder(ScenicOrder scenicOrder) {
+        scenicOrderService.delete(scenicOrder);
+        response.setMessage("删除成功");
+        return JSON.toJSONString(response);
+    }
+
+    @PostMapping(value = "/deleteHotelOrder.action", produces = "text/json;charset=UTF-8")
+    @ResponseBody
+    public String deleteHotelOrder(HotelOrder hotelOrder) {
+        hotelOrderService.delete(hotelOrder);
+        response.setMessage("删除成功");
+        return JSON.toJSONString(response);
+    }
+
+    @PostMapping(value = "/deleteUserMsg.action", produces = "text/json;charset=UTF-8")
+    @ResponseBody
+    public String deleteUserMsg(UserMsg userMsg) {
+        userMsgService.delete(userMsg);
+        response.setMessage("删除成功");
+        return JSON.toJSONString(response);
     }
 
 }

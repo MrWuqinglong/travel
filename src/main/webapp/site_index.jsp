@@ -20,22 +20,7 @@
 <body>
 
 <!-- 导航栏 -->
-<div>
-    <ul class="layui-nav">
-        <li class="layui-nav-item layui-this">
-            <a href="/" class="item">首页</a>
-        </li>
-        <li class="layui-nav-item">
-            <a href="/scenic/listAll.action" class="item">预定景点</a>
-        </li>
-        <li class="layui-nav-item">
-            <a href="/hotel/listAll.action" class="item">预定酒店</a>
-        </li>
-        <li class="layui-nav-item">
-            <a href="/leaveMsg/connectUs.action" class="item">联系我们</a>
-        </li>
-    </ul>
-</div>
+<%@ include file="header.jsp"%>
 
 <div class="grid content">
     <div class="grid-cell-2of3">
@@ -99,7 +84,7 @@
             <fieldset class="layui-elem-field" style="height: auto;">
                 <legend>登录账号</legend>
                 <div class="layui-field-box">
-                    <form class="layui-form layui-form-pane">
+                    <form class="layui-form layui-form-pane" method="post">
                         <div class="layui-form-item">
                             <label class="layui-form-label">用户名</label>
                             <div class="layui-input-block">
@@ -109,12 +94,12 @@
                         <div class="layui-form-item">
                             <label class="layui-form-label">密码</label>
                             <div class="layui-input-block">
-                                <input type="text" name="password" class="layui-input">
+                                <input type="password" name="password" class="layui-input">
                             </div>
                         </div>
                         <div class="layui-form-item">
                             <div class="layui-input-block">
-                                <button class="layui-btn" lay-submit="" lay-filter="formDemo">立即提交</button>
+                                <button class="layui-btn" lay-submit="" lay-filter="formDemo">立即登录</button>
                                 <a href="/site/register.action" class="layui-btn layui-btn-primary">注册新用户</a>
                             </div>
                         </div>
@@ -151,8 +136,8 @@
                         </div>
                         <div class="layui-form-item">
                             <div class="layui-input-block">
-                                <a href="" class="layui-btn layui-btn-primary layui-btn-radius">进入个人中心</a>
-                                <a href="" class="layui-btn layui-btn-primary layui-btn-radius">退出当前账号</a>
+                                <a href="/user/userBack.action" class="layui-btn layui-btn-primary layui-btn-radius">进入个人中心</a>
+                                <a href="/user/doLogout.action" class="layui-btn layui-btn-primary layui-btn-radius">退出当前账号</a>
                             </div>
                         </div>
                         <div class="layui-form-item">
@@ -165,10 +150,11 @@
             </fieldset>
         </c:if>
     </div>
+    <a href="/scenic/scenicDetail.action"></a>
 </div>
 
 <script>
-    layui.use('element', function () {
+    layui.use(['form', 'element'], function () {
         var element = layui.element();
         var form = layui.form();
         var $ = layui.jquery;
@@ -180,7 +166,11 @@
             var url = "/user/doLogin.action";
             $.post(url, dataVal, function (result) {
                 layer.alert(result.message);
-            })
+                if (result.type == "success") {
+                    window.location = "/user/index.action";
+                }
+            });
+            return false;
         });
 
         /* 获取最热的景点 */
@@ -194,9 +184,10 @@
             url: "/notice/listLastNotice.action",
             type: "post",
             success: function (data) {
+                console.log("notice");
                 var dataStr = "";
                 for (var i=0; i<data.length; i++) {
-                    dataStr += "<dd><a href=''>"+data[i].title+"</a></dd>";
+                    dataStr += "<dd><a href='/notice/noticeDetail.action?id=" + data[i].id + "'>" + data[i].name + "</a></dd>";
                 }
                 $("#notices").append(dataStr);
             }
@@ -208,9 +199,10 @@
             url: "/scenic/listLastScenic.action",
             type: "post",
             success: function (data) {
+                console.log("scenic");
                 var dataStr = "";
                 for (var i=0; i<data.length; i++) {
-                    dataStr += "<dd><a href=''>"+data[i].name+"</a></dd>";
+                    dataStr += "<dd><a href='/scenic/scenicDetail.action?id=" + data[i].id + "'>" + data[i].name + "</a></dd>";
                 }
                 $("#scenics").append(dataStr);
             }
@@ -221,9 +213,10 @@
             url: "/hotel/listLastHotel.action",
             type: "post",
             success: function (data) {
+                console.log("hotel");
                 var dataStr = "";
                 for (var i=0; i<data.length; i++) {
-                    dataStr += "<dd><a href=''>"+data[i].name+"</a></dd>";
+                    dataStr += "<dd><a href='/hotel/hotelDetail.action?id=" + data[i].id + "'>" + data[i].name + "</a></dd>";
                 }
                 $("#hotels").append(dataStr);
             }

@@ -35,4 +35,11 @@ public class HotelController extends BaseController {
         return "/order_hotel";
     }
 
+    @GetMapping(value = "/hotelDetail.action")
+    public String hotelDetail(Hotel hotel, ModelMap modelMap) {
+        hotel = hotelService.get(hotel.getId());
+        modelMap.addAttribute("hotel", hotel);
+        return "/hotel_detail";
+    }
+
 }

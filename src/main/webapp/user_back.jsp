@@ -11,22 +11,7 @@
 </head>
 <body>
 <!-- 导航栏 -->
-<div>
-    <ul class="layui-nav">
-        <li class="layui-nav-item layui-this">
-            <a href="/" class="item">首页</a>
-        </li>
-        <li class="layui-nav-item">
-            <a href="/" class="item">预定景点</a>
-        </li>
-        <li class="layui-nav-item">
-            <a href="/" class="item">预定酒店</a>
-        </li>
-        <li class="layui-nav-item">
-            <a href="/" class="item">联系我们</a>
-        </li>
-    </ul>
-</div>
+<%@ include file="header.jsp"%>
 
 <div class="grid" style="margin: 10px 150px;">
     <div class="grid-cell-full breadcrumb">
@@ -57,7 +42,14 @@
                         <div class="layui-form-item" style="width: 400px;">
                             <label class="layui-form-label">性别</label>
                             <div class="layui-input-block">
-                                <input type="text" name="gender" value="${user.gender}" class="layui-input">
+                                <c:if test="${user.gender == '男'}">
+                                    <input type="radio" name="gender" value="男" title="男" checked>
+                                    <input type="radio" name="gender" value="女" title="女">
+                                </c:if>
+                                <c:if test="${user.gender == '女'}">
+                                    <input type="radio" name="gender" value="男" title="男">
+                                    <input type="radio" name="gender" value="女" title="女" checked>
+                                </c:if>
                             </div>
                         </div>
                         <div class="layui-form-item" style="width: 400px;">
@@ -74,7 +66,7 @@
                         </div>
                         <div class="layui-form-item">
                             <div class="layui-input-block">
-                                <button class="layui-btn layui-btn-primary">提交更新</button>
+                                <button class="layui-btn layui-btn-primary" lay-submit="" lay-filter="profileDemo">提交更新</button>
                             </div>
                         </div>
                     </div>
@@ -109,12 +101,13 @@
                                 <td>${item.scenic.price} RMB</td>
                                 <td>${item.scenic.address}</td>
                                 <td><fmt:formatDate value="${item.createTime}" pattern="yyyy-MM-dd" /></td>
-                                <td>${item.status}</td>
+                                <td>${item.status==0?'未使用':'已使用'}</td>
                                 <td>${item.uuid}</td>
                                 <td>
-                                    <button class="layui-btn layui-btn-primary">
+                                    <button tag="scenicDeleteBtn" class="layui-btn layui-btn-primary">
                                         <i class="layui-icon">&#xe640;</i>
                                     </button>
+                                    <input type="hidden" value="${item.id}">
                                 </td>
                             </tr>
                         </c:forEach>
@@ -156,9 +149,10 @@
                                 <td>${item.status==0?'未入住':'已入住'}</td>
                                 <td>${item.uuid}</td>
                                 <td>
-                                    <button class="layui-btn layui-btn-primary">
+                                    <button tag="hotelDeleteBtn" class="layui-btn layui-btn-primary">
                                         <i class="layui-icon">&#xe640;</i>
                                     </button>
+                                    <input type="hidden" value="${item.id}">
                                 </td>
                             </tr>
                         </c:forEach>
@@ -173,13 +167,13 @@
                         <div class="layui-form-item" style="width: 300px;">
                             <label class="layui-form-label">余额</label>
                             <div class="layui-input-block">
-                                <input type="text" class="layui-input" disabled>
+                                <input type="text" value="${user.balance}" class="layui-input" disabled>
                             </div>
                         </div>
                         <div class="layui-form-item" style="width: 300px;">
                             <label class="layui-form-label">充值金额</label>
                             <div class="layui-input-block">
-                                <input type="text" name="money" class="layui-input">
+                                <input type="text" name="money" lay-verify="required|number" class="layui-input">
                             </div>
                         </div>
                         <div class="layui-form-item" style="width: 200px;">
@@ -210,9 +204,10 @@
                                 <td><fmt:formatDate value="${item.createTime}" pattern="yyyy-MM-dd" /></td>
                                 <td>${item.message}</td>
                                 <td>
-                                    <button class="layui-btn layui-btn-primary">
+                                    <button tag="userMsgDeleteBtn" class="layui-btn layui-btn-primary">
                                         <i class="layui-icon">&#xe640;</i>
                                     </button>
+                                    <input type="hidden" value="${item.id}">
                                 </td>
                             </tr>
                         </c:forEach>
@@ -233,12 +228,50 @@
         var layer = layui.layer;
         
         form.on('submit(recharge)', function (data) {
+            var urlVal = "/user/recharge.action";
+            var dataVal = data.field;
+            $.post(urlVal, dataVal, function (result) {
+                layer.alert(result.message);
+                window.location.reload();
+            });
+            return false;
+        });
+        
+        form.on('submit(profileDemo)', function (data) {
             var urlVal = "";
             var dataVal = data.field;
             $.post(urlVal, dataVal, function (result) {
                 layer.alert(result.message);
             });
         });
+        
+        $("button[tag='scenicDeleteBtn']").click(function () {
+            var idVal = $(this).next().val();
+            var url = "/user/deleteScenicOrder.action";
+            var data = {"id":idVal};
+            $.post(url, data, function (result) {
+                layer.alert(result.message);
+            });
+        });
+
+        $("button[tag='hotelDeleteBtn']").click(function () {
+            var idVal = $(this).next().val();
+            var url = "/user/deleteHotelOrder.action";
+            var data = {"id":idVal};
+            $.post(url, data, function (result) {
+                layer.alert(result.message);
+            });
+        });
+
+        $("button[tag='userMsgDeleteBtn']").click(function () {
+            var idVal = $(this).next().val();
+            var url = "/user/deleteUserMsg.action";
+            var data = {"id":idVal};
+            $.post(url, data, function (result) {
+                layer.alert(result.message);
+            });
+        });
+
     });
 </script>
 </body>

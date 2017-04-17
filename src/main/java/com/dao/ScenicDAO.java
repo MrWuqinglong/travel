@@ -12,7 +12,7 @@ import java.util.List;
 @Repository
 public class ScenicDAO extends BaseDAO<Scenic>{
     public List<Scenic> listLastScenic() {
-        String hql = "FROM Scenic ORDER BY createTime DESC LIMIT ?";
-        return listWithCustom(hql, 5);
+        String hql = "FROM Scenic ORDER BY createTime DESC";
+        return listPage(hql, 1, 5);
     }
 }

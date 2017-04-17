@@ -36,4 +36,11 @@ public class ScenicController extends BaseController{
         return "/order_scenic";
     }
 
+    @GetMapping(value = "/scenicDetail.action")
+    public String scenicDetail(Scenic scenic, ModelMap modelMap) {
+        scenic = scenicService.get(scenic.getId());
+        modelMap.addAttribute("scenic", scenic);
+        return "/scenic_detail";
+    }
+
 }

@@ -16,4 +16,9 @@ public class HotelOrderDAO extends BaseDAO<HotelOrder> {
         String hql = "FROM HotelOrder WHERE user.id=?";
         return listWithCustom(hql, user.getId());
     }
+
+    public HotelOrder getByUUID(String uuid) {
+        String hql = "FROM HotelOrder WHERE uuid=?";
+        return get(hql, uuid);
+    }
 }
